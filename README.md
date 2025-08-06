@@ -1,33 +1,60 @@
-# Transfer Counselor Agent System
+# Enhanced Transfer Counselor Agent System v2.0.0
 
-A comprehensive multi-agent system designed to help community college students successfully transfer to UC and CSU schools.
+🚀 **STATUS: FULLY REFACTORED & OPERATIONAL** 🚀
+
+A sophisticated multi-agent system powered by OpenAI's Agents SDK, designed to help community college students transfer to UC and CSU schools with comprehensive AI assistance.
+
+> ✅ **v2.0.0 Released**: Complete architectural refactoring for maintainability  
+> ✅ **Professional Structure**: Organized into clean, modular packages  
+> ✅ **API Integration Working**: Real GPT-powered responses with intelligent routing  
+> ✅ **Production Ready**: Full session management, tracing, and error handling  
 
 ## 🎯 System Overview
 
-This system provides specialized counseling through multiple AI agents with built-in guardrails to ensure responses stay focused on transfer and career-related topics.
+This system provides specialized counseling through multiple AI agents with built-in guardrails, session management, tracing, and comprehensive error handling.
 
 ### Key Components
 
 - **🤖 Coordinator Agent**: Routes queries and manages multi-agent responses
 - **💰 Financial Aid Agent**: FAFSA, scholarships, grants, cost planning
 - **💼 Career Counselor Agent**: Major selection, career paths, job prospects
-- **📚 Course Difficulty Agent**: Academic planning, study strategies, course management
+- **📚 Academic Advisor**: Course planning, study strategies, academic success
 - **🛡️ Guardrails System**: Ensures responses stay on-topic for transfer counseling
+- **📊 Session Management**: Persistent conversations with SQLite database (sessions.db)
+- **🔍 Tracing System**: Comprehensive logging and monitoring
 
 ## 🚀 Quick Start
 
+### Setup
+```bash
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Add your OpenAI API key to .env file:
+echo 'OPENAI_API_KEY="sk-your-key-here"' > .env
+```
+
 ### Run Interactive Session
 ```bash
-python main.py
+python -c "from transfer_counselor import EnhancedTransferCounselorSystem; EnhancedTransferCounselorSystem().interactive_session()"
 ```
 
 ### Use in Code
 ```python
-from main import TransferCounselorSystem
+from transfer_counselor import EnhancedTransferCounselorSystem
 
-system = TransferCounselorSystem()
+system = EnhancedTransferCounselorSystem()
 result = system.process_query("How do I apply for financial aid?")
 print(result['response'])
+```
+
+### Run Tests
+```bash
+python -m transfer_counselor.tests.test_system
 ```
 
 ## 📋 Features
@@ -80,14 +107,32 @@ The system includes comprehensive guardrails that:
 
 ```
 Agent_Test/
-├── main.py                    # Main system entry point
-├── coordinator_agent.py       # Master coordination logic
-├── financial_aid_agent.py     # Financial aid expertise
-├── career_counselor_agent.py  # Career guidance
-├── course_difficulty_agent.py # Academic planning
-├── guardrails.py             # Safety and topic filtering
-├── model_config.py           # Agent configuration
-└── README.md                 # This file
+├── transfer_counselor/           # Main package
+│   ├── __init__.py              # Package entry point
+│   ├── agents/                  # Agent implementations
+│   │   ├── manager.py           # Agent orchestration
+│   │   ├── financial_aid.py     # Financial aid expertise
+│   │   ├── career_counselor.py  # Career guidance
+│   │   ├── academic_advisor.py  # Academic planning
+│   │   └── coordinator.py       # Master coordination
+│   ├── core/                    # Core system components
+│   │   ├── system.py           # Main system class
+│   │   ├── session.py          # Session management
+│   │   ├── routing.py          # Query routing
+│   │   ├── tracing.py          # Logging & monitoring
+│   │   └── interactive.py      # Interactive session
+│   ├── utils/                   # Utility modules
+│   │   ├── config.py           # Configuration management
+│   │   ├── error_handling.py   # Error handling & recovery
+│   │   ├── guardrails.py       # Safety system
+│   │   └── fallback_responses.py # Fallback responses
+│   └── tests/                   # Test suite
+│       └── test_system.py      # System integration tests
+├── sessions.db                  # SQLite session database
+├── .env                        # Environment variables (API key)
+├── config.yaml                 # System configuration
+├── requirements.txt            # Python dependencies
+└── README.md                   # This documentation
 ```
 
 ## 🎯 Use Cases
